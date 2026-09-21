@@ -18,7 +18,11 @@ public class EcoSafari{
      * Pupulates the EcoSafari with some entities
      */
     public void someEntities(){   
- 
+        Elephant dumbo = new Elephant(this, 5, 5);
+        set(dumbo, 5, 5);
+        
+        Elephant babar = new Elephant(this, 10, 10);  
+        set(babar, 10, 10);
     }
     
     /**
@@ -85,6 +89,16 @@ public class EcoSafari{
     //First, all entities execute their tic() action
     //Then, all entities execute their tac() actions
     public void ticTac(){  
+        for (Entity[] row: cells){ 
+            for (Entity e : row){
+                if (e !=null) e.tic();
+            }
+        }
+        for (Entity[] row: cells){
+            for (Entity e : row){
+                if(e!=null) e.tac();
+            }
+        }
     }
 
 }

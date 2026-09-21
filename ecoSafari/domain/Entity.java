@@ -22,6 +22,21 @@ public interface Entity{
     }
 
    public abstract EcoSafari getHabitat();
+   
+   public default void lookAround (EcoSafari habitat, int r, int c, Entity e){
+       
+       for (int i = -1; i <= 1; i++){
+            for (int j =-1; j <= 1; j++){
+                if (i == 0 && j == 0){
+                    continue;
+                }
+                
+                if (habitat.get(r + i, c + j) != null){
+                    //quedaron acá :D
+                }
+            }
+       }
+   }
     
    public default boolean disappear(){
      boolean ok=false;
@@ -48,5 +63,4 @@ public interface Entity{
         }
         return ok;
     }
-    
 }
