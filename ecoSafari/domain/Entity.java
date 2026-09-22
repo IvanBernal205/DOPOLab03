@@ -3,44 +3,43 @@ import java.awt.Color;
 
 //Include the documentation
 public interface Entity{
-   public static final int SQUARE = 2;
-   public static final int ROUND = 1;
+    public static final int SQUARE = 2;
+    public static final int ROUND = 1;
     
-   public void tic();
-  
-   public default void tac(){
-   }
+    public void tic();
 
-   public default int shape(){
-      return SQUARE;
-   }
-  
-   public abstract Color getColor();
-  
-    public default boolean isOrganism(){
-      return false;
+    public default void tac(){
     }
 
-   public abstract EcoSafari getHabitat();
-   
-   public default void lookAround (EcoSafari habitat, int r, int c, Entity e){
-       
-       for (int i = -1; i <= 1; i++){
-            for (int j =-1; j <= 1; j++){
-                if (i == 0 && j == 0){
-                    continue;
-                }
-                
-                if (habitat.get(r + i, c + j) != null){
-                    //quedaron acá :D
-                }
+    public default int shape(){
+        return SQUARE;
+    }
+
+    public abstract Color getColor();
+
+    public default boolean isOrganism(){
+        return false;
+    }
+
+    public abstract EcoSafari getHabitat();
+
+    public default Entity[] neighbors(){
+        int[] position = getHabitat().find(this);
+        Entity[] result = new Entity[8];
+        if (position == null) return result;
+        int k = 0;
+        for (int i = -1; i <= 1; i++){
+            for (int j = -1; j <= 1; j++){
+                if (i == 0 && j == 0) continue;
+                result[k++] = getHabitat().get(position[0] + i, position[1] + j);
             }
-       }
-   }
+        }
+        return result;
+    }
     
-   public default boolean disappear(){
-     boolean ok=false;
-     int [] position=this.getHabitat().find(this);
+    public default boolean disappear(){
+        boolean ok=false;
+        int [] position=this.getHabitat().find(this);
         if (position!=null){
             getHabitat().set(null,position[0],position[1]);
             ok=true;

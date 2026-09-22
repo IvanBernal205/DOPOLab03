@@ -19,10 +19,10 @@ public class EcoSafari{
      */
     public void someEntities(){   
         Elephant dumbo = new Elephant(this, 5, 5);
-        set(dumbo, 5, 5);
-        
         Elephant babar = new Elephant(this, 10, 10);  
-        set(babar, 10, 10);
+
+        Bush mopane = new Bush(this, 7, 9);
+        Bush acacia = new Bush(this, 10, 9);
     }
     
     /**
