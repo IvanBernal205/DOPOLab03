@@ -46,7 +46,6 @@ public class Bush extends Organism implements Entity{
             }
         }
         
-        
         hasActed=true;
     }
     
