@@ -2,7 +2,7 @@ package domain;
 
 
 public class EcoSafari{
- 
+
     private static final int SIZE=25;
     private Entity[][] cells;
     
@@ -18,16 +18,13 @@ public class EcoSafari{
      * Pupulates the EcoSafari with some entities
      */
     public void someEntities(){   
-        Elephant dumbo = new Elephant(this, 5, 5);
-        Elephant babar = new Elephant(this, 10, 10); 
+        for(int i = 0; i<SIZE; i++){
+            for(int j = 0; j<SIZE; j++){
+                new Earth(this, i, j);
+            }
+        }
         
-
-        Bush mopane = new Bush(this, 12, 14);
-        Bush acacia = new Bush(this, 12, 7);
-        
-        Storm tormenta = new Storm(this, 12,12);
-        
-        Elephant h = new Elephant(this, 12, 14);
+        Lion l = new Lion(this, 12, 12);
     }
     
     /**
@@ -99,6 +96,7 @@ public class EcoSafari{
                 if (e !=null) e.tic();
             }
         }
+        
         for (Entity[] row: cells){
             for (Entity e : row){
                 if(e!=null) e.tac();
