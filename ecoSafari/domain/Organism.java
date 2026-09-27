@@ -24,7 +24,7 @@ public abstract class Organism{
      * @return 
      */
     public final void changeEnergy(float percentage){
-        changeEnergy((int)Math.ceil(energy*percentage));
+        changeEnergy((int)Math.floor(energy*percentage));
     }    
     
     

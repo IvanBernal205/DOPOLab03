@@ -52,4 +52,20 @@ public class Zebra extends Organism implements Entity{
     public void tac(){
         hasActed = false;
     }
+
+    public boolean move(int deltaRows, int deltaColumns){
+        int[] position = habitat.find(this);
+        boolean ok = false;
+        if (position != null){
+            int r = position[0] + deltaRows;
+            int c = position[1] + deltaColumns;
+            Entity target = habitat.get(r, c);
+            if (target instanceof Earth){
+                habitat.set(this, r, c);
+                habitat.set(target, position[0], position[1]);
+                ok = true;
+            }
+        }
+        return ok;
+    }
 }
