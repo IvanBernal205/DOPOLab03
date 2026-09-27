@@ -68,6 +68,16 @@ public class ElephantTest
         assertEquals(70, dumbo.getEnergy());
         assertEquals(Color.LIGHT_GRAY, dumbo.getColor());
     }
+    
+    @Test
+    public void shouldLoseTenEnergyPointsPerMove(){
+        Elephant dumbo = new Elephant(safari, 5, 5);
+        safari.ticTac();
+        assertSame(dumbo, safari.get(6, 6));
+        assertNull(safari.get(5, 5));
+        assertNull(safari.get(7, 7));   // no avanzo dos veces
+        assertEquals(90, dumbo.getEnergy());
+    }
  
     /**
      * Tears down the test fixture.
