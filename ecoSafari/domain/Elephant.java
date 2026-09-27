@@ -5,7 +5,7 @@ import java.awt.Color;
 //Include the documentation
 public class Elephant extends Organism implements Entity{
     private final EcoSafari habitat;
-    private boolean hasActed;
+    protected boolean hasActed;
     
     public Elephant(EcoSafari habitat,int row, int column){
         this.habitat=habitat;
@@ -17,7 +17,7 @@ public class Elephant extends Organism implements Entity{
         return habitat;
     }
     
-    public final Color getColor(){
+    public Color getColor(){
         return(getEnergy()>=80? Color.DARK_GRAY: Color.LIGHT_GRAY);
     }
 
