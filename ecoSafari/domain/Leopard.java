@@ -4,8 +4,9 @@ import java.awt.Color;
 /**
  * Write a description of class Leopard here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author César Santiago Malaver Garnica
+ * @author Iván Andres Bernal Sabogal
+ * @version 27-09-2026
  */
 public class Leopard extends Organism implements Entity{
     private final EcoSafari habitat;

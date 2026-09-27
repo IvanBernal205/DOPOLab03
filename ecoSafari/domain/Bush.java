@@ -2,10 +2,11 @@ package domain;
 import java.awt.Color;
 
 /**
- * Write a description of class Bush here.
+ * A bush that can be used in the EcoSafari
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Ivan Andres Bernal Sabogal
+ * @author César Santiago Malaver Garnica 
+ * @version 26-09-2026
  */
 public class Bush extends Organism implements Entity{
     private final EcoSafari habitat;

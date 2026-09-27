@@ -43,13 +43,20 @@ public class LeopardTest
     @Test
     public void shouldDestroyABushWhenItIsClose(){
         EcoSafari safari = new EcoSafari();
-        Bush mopane = new Bush(safari, 10,10);
-        Leopard leo = new Leopard(safari, 11, 11);
         
-        leo.tic();
-        leo.tac();
+        Bush mopane = new Bush(safari, 10,11);
+        Leopard ivan = new Leopard(safari, 11, 11);
         
-        assertNull(safari.get(10, 10));
+        Bush acacia = new Bush(safari, 15, 14);
+        Leopard santiago = new Leopard(safari, 15,15);
+        
+        ivan.tic();
+        ivan.tac();
+        assertNull(safari.get(10, 11));
+        
+        santiago.tic();
+        santiago.tac();
+        assertNull(safari.get(15, 14));
     }
     
     @Test
