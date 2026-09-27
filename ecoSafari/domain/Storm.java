@@ -64,4 +64,19 @@ public class Storm implements Entity{
             }
         }
     }
+
+    public boolean move(int deltaRows, int deltaColumns){
+    int[] position = habitat.find(this);
+    boolean ok = false;
+    if (position != null){
+        int r = position[0] + deltaRows;
+        int c = position[1] + deltaColumns;
+        if (habitat.isInside(r, c)){
+            habitat.set(null, position[0], position[1]);
+            habitat.set(this, r, c);
+            ok = true;
+        }
+    }
+    return ok;
+    }
 }

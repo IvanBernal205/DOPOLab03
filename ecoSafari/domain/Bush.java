@@ -11,7 +11,7 @@ import java.awt.Color;
 public class Bush extends Organism implements Entity{
     private final EcoSafari habitat;
     private boolean hasActed;
-    
+
     public Bush(EcoSafari habitat, int row, int column){
         this.habitat = habitat;
         habitat.set((Entity)this, row, column);  
@@ -24,30 +24,9 @@ public class Bush extends Organism implements Entity{
             if (getEnergy()==0){
                 disappear();
             }else if(getEnergy() == 80){
-                int[] position = getHabitat().find(this);
-                int r = position[0];
-                int c = position[1];
-                
-                if (getHabitat().isInside(r-1,c) && getHabitat().get(r-1,c) == null){//norte
-                    r = r-1; 
-                }
-                else if (getHabitat().isInside(r+1,c) && getHabitat().get(r+1,c) == null){//sur
-                    r = r+1;
-                }
-                else if (getHabitat().isInside(r,c+1) && getHabitat().get(r,c + 1) == null){//este
-                    c = c+1;
-                }
-                else if (getHabitat().isInside(r,c-1) && getHabitat().get(r,c-1) == null){//oeste
-                    c = c-1;
-                }else{
-                    hasActed=true;
-                    return;
-                }
-                Bush newBush = new Bush(getHabitat(), r, c);
-                newBush.hasActed = true; // evita que el nuevo arbusto baje de energia recien se crea
+                spread();
             }
         }
-        
         hasActed=true;
     }
     
@@ -68,5 +47,32 @@ public class Bush extends Organism implements Entity{
     
     public EcoSafari getHabitat(){
         return habitat;
+    }
+
+    /**
+     * Spreads the bush to an adjacent empty cell
+     */
+    private void spread(){
+        int[] position = getHabitat().find(this);
+        int r = position[0];
+        int c = position[1];
+        
+        if (getHabitat().isInside(r-1,c) && getHabitat().get(r-1,c) == null){//norte
+            r = r-1; 
+        }
+        else if (getHabitat().isInside(r+1,c) && getHabitat().get(r+1,c) == null){//sur
+            r = r+1;
+        }
+        else if (getHabitat().isInside(r,c+1) && getHabitat().get(r,c + 1) == null){//este
+            c = c+1;
+        }
+        else if (getHabitat().isInside(r,c-1) && getHabitat().get(r,c-1) == null){//oeste
+            c = c-1;
+        }else{
+            return;
+        }
+
+        Bush newBush = new Bush(getHabitat(), r, c);
+        newBush.hasActed = true; // evita que el nuevo arbusto baje de energia recien se crea
     }
 }

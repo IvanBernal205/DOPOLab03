@@ -79,7 +79,7 @@ public interface Entity{
         if (position!=null){
             int r = position[0];
             int c = position[1];
-            if (habitat.isInside(r+deltaRows,c+deltaColumns) && habitat.get(r+deltaRows, c+deltaColumns) == null){
+            if (habitat.isInside(r+deltaRows,c+deltaColumns)){
                 habitat.set(null,r,c);
                 habitat.set(this,r+deltaRows,c+deltaColumns);
                 ok=true;

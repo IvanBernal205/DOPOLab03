@@ -46,7 +46,7 @@ public class ElephantTest
     }
  
     @Test
-    public void shouldLoseTenPercentEnergyPerMove(){
+    public void shouldLoseTenEnergyPointsPerMove(){
         Elephant babar = new Elephant(safari, 10, 10);
         assertEquals(100, babar.getEnergy());
         babar.tic();
@@ -70,7 +70,7 @@ public class ElephantTest
     }
     
     @Test
-    public void shouldLoseTenEnergyPointsPerMove(){
+    public void shouldMoveOnlyOneCellPerTicTac(){
         Elephant dumbo = new Elephant(safari, 5, 5);
         safari.ticTac();
         assertSame(dumbo, safari.get(6, 6));
@@ -87,5 +87,6 @@ public class ElephantTest
     @AfterEach
     public void tearDown()
     {
+        safari = null;
     }
 }
