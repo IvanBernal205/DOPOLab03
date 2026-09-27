@@ -36,11 +36,13 @@ public class Storm implements Entity{
             return;
         }
         if (!hasActed && move(-1, 1));
+        hasActed = true;
     }
     
     public void tac(){
         if (!isCenter) return;
         int [] position = getHabitat().find(this);
+        if (position == null) return;
         createAround(position[0], position[1]);
         hasActed = false;
     }
