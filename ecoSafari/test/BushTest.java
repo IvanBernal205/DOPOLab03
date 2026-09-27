@@ -47,6 +47,7 @@ public class BushTest
         EcoSafari safari = new EcoSafari();
         Bush acacia = new Bush(safari, 0, 0);       
         acacia.tic();
+        acacia.tac();
         assertSame(acacia, safari.get(0, 0));
     }
 

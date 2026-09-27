@@ -1,6 +1,5 @@
 package domain;
 
-
 public class EcoSafari{
 
     private static final int SIZE=25;
@@ -24,7 +23,27 @@ public class EcoSafari{
             }
         }
         
-        Lion l = new Lion(this, 12, 12);
+        Bush mopane = new Bush(this, 12, 14);
+        Bush acacia = new Bush(this, 12, 7);
+        
+        Storm thor = new Storm(this, 12, 3);
+        Storm tempest = new Storm(this, 16, 10);
+        
+        Mamut m = new Mamut(this, 0, 0);
+        
+        Bush a = new Bush(this, 2, 2);
+        Bush b = new Bush(this, 2, 1);
+        Bush c = new Bush(this, 2, 0);
+        Bush d = new Bush(this, 0, 2);
+        Bush e = new Bush(this, 1, 2);
+        
+        // Bush acacia = new Bush(this, 20, 19);
+        // Bush acaci = new Bush(this, 20, 21);
+        // Bush acac = new Bush(this, 19, 20);
+        // Bush aca = new Bush(this, 21, 20);
+        //Leopard ivan = new Leopard(this, 21,21);
+        // Leopard santiago = new Leopard (this, 20, 20);
+        //Elephant h = new Elephant(this, 12, 14);
     }
     
     /**
