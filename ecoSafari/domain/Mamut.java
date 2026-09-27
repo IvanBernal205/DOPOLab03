@@ -31,6 +31,9 @@ public class Mamut extends Elephant
         hasActed=true;
     }
     
+    /**
+     * Returns whether the mamut is next to 3 bushes or not.
+     */
     public boolean nextToBush(){
         Entity[] nb = neighbors();
         int numBush = 0;
@@ -43,6 +46,10 @@ public class Mamut extends Elephant
         return false;
     }
     
+    /**
+     * Moves the mamut to a random adjacent cell.
+     * @return true if the mamut was successfully moved, false otherwise
+     */
     public boolean randomMove(){
         int r = (int)(Math.random() * 3) - 1;
         int c = (int)(Math.random() * 3) - 1;

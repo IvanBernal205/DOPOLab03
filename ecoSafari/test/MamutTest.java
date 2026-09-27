@@ -56,7 +56,7 @@ public class MamutTest
         manny.tac();
         int[] position = safari.find(manny);
         assertNotNull(position);
-        assertNotEquals(new int[]{20,20}, position);
+        assertNull(safari.get(20, 20));
         assertEquals(95, manny.getEnergy());
     }
     

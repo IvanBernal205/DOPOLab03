@@ -34,20 +34,29 @@ public class Leopard extends Organism implements Entity{
     }
     
     public void tic(){
-        if(!hasActed){
+        if (!hasActed){
             changeEnergy(-10);
-            if (getEnergy() == 0) disappear();
-            Entity[] neighbors = this.neighbors();
-            for (Entity n : neighbors){
-                if (n instanceof Bush) {
-                    n.disappear();
-                    break;
-                }
+            if (getEnergy() == 0){
+                disappear();
+            } else {
+                eatOneBush();
+                move(-2, -2);
             }
         }
-        if (move(-2,-2));
         hasActed = true;
     }
+
+    /**
+     * Eats one bush if the leopard is next to it.
+     */
+    private void eatOneBush(){
+        for (Entity n : neighbors()){
+            if (n instanceof Bush){
+                n.disappear();
+                break;
+            }
+    }
+}
     
     public void tac(){
         hasActed = false;

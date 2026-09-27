@@ -22,7 +22,6 @@ public class EcoSafari{
         
         Bush mopane = new Bush(this, 12, 14);
         Bush acacia = new Bush(this, 12, 7);
-        Storm tormenta = new Storm(this, 12,12);
         
         Storm thor = new Storm(this, 12, 3);
         Storm tempest = new Storm(this, 16, 10);
