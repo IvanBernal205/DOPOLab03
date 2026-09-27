@@ -48,7 +48,7 @@ public class Mamut extends Elephant
         int c = (int)(Math.random() * 3) - 1;
         int cont = 0;
         
-        while(!move(r,c) && cont<9){
+        while((r==0 && c==0) || (!move(r,c) && cont<9)){
             r = (int)(Math.random() * 3) - 1;
             c = (int)(Math.random() * 3) - 1;
             cont++;
