@@ -22,27 +22,28 @@ public class Bush extends Organism implements Entity{
             changeEnergy(-10);
             if (getEnergy()==0){
                 disappear();
-            }
-            
-            if(getEnergy() == 80){
+            }else if(getEnergy() == 80){
                 int[] position = getHabitat().find(this);
                 int r = position[0];
                 int c = position[1];
                 
-                if (getHabitat().get(r-1,c) == null){//norte
+                if (getHabitat().isInside(r-1,c) && getHabitat().get(r-1,c) == null){//norte
                     r = r-1; 
                 }
-                else if (getHabitat().get(r+1,c) == null){//sur
+                else if (getHabitat().isInside(r+1,c) && getHabitat().get(r+1,c) == null){//sur
                     r = r+1;
                 }
-                else if (getHabitat().get(r,c + 1) == null){//este
+                else if (getHabitat().isInside(r,c+1) && getHabitat().get(r,c + 1) == null){//este
                     c = c+1;
                 }
-                else if (getHabitat().get(r,c-1) == null){//oeste
+                else if (getHabitat().isInside(r,c-1) && getHabitat().get(r,c-1) == null){//oeste
                     c = c-1;
+                }else{
+                    hasActed=true;
+                    return;
                 }
-
-                new Bush(getHabitat(), r, c);
+                Bush newBush = new Bush(getHabitat(), r, c);
+                newBush.hasActed = true; // evita que el nuevo arbusto baje de energia recien se crea
             }
         }
         
@@ -61,7 +62,7 @@ public class Bush extends Organism implements Entity{
     
     
     public Color getColor(){
-        return(getEnergy()>=60? Color.green: Color.yellow);
+        return(getEnergy()>60 ? Color.green : Color.yellow);
     }
     
     public EcoSafari getHabitat(){
