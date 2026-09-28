@@ -26,7 +26,10 @@ public class EcoSafari{
      */
     public void someEntities(){  
         // Primera parte la sustentación 
-
+        
+        Elephant dumbo = new Elephant(this, 5, 5);
+        Elephant babar = new Elephant(this, 10, 10);
+        
         Bush mopane = new Bush(this, 12, 14);
         Bush acacia = new Bush(this, 12, 7);
         
@@ -34,7 +37,7 @@ public class EcoSafari{
         Storm tempest = new Storm(this, 16, 10);
         
         Mamut bernal = new Mamut(this, 0, 0);
-        Mamut malaver = new Mamut(this, 25, 25);
+        Mamut malaver = new Mamut(this, 24, 24);
         
         Leopard ivan = new Leopard(this, 21,21);
         Leopard santiago = new Leopard (this, 20, 20);

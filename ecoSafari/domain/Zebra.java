@@ -47,7 +47,7 @@ public class Zebra extends Organism implements Entity{
                 cont++;
             }
             if (moved){
-                changeEnergy(-(getEnergy() * 0.10f));
+                changeEnergy(-0.10f);
             }
             if (getEnergy()==0){
                 replaceWithEarth(this);
@@ -60,7 +60,7 @@ public class Zebra extends Organism implements Entity{
                     int[] positionG = getHabitat().find(n);
                     n.disappear();
                     new Earth(getHabitat(), positionG[0], positionG[1]);
-                    this.changeEnergy(10);
+                    this.changeEnergy(0.25f);
                     break;
                 }
             }
