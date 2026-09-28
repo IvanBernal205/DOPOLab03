@@ -25,6 +25,7 @@ public class Earth implements Entity
         int randNum = (int) (Math.random() * 10) + 1;
         if(randNum == 1){
             int[] position = getHabitat().find(this);
+            if (position == null) return;
             int r = position[0];
             int c = position[1];
             new Grass(getHabitat(), r, c);
