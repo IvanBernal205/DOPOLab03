@@ -18,6 +18,10 @@ public class Bush extends Organism implements Entity{
         hasActed=false;
     }
     
+    /**
+     * Decreases the energy of the bush by 10. If the energy reaches 0, the bush disappears.
+     * After 2 tics the bush spreads to an adjacent empty cell.
+     */
     public void tic(){
         if (!hasActed) {
             changeEnergy(-10);
@@ -30,6 +34,9 @@ public class Bush extends Organism implements Entity{
         hasActed=true;
     }
     
+    /**
+     * If there is an elephant in the neighborhood, the bush disappears.
+     */
     public void tac(){
         for (Entity neighbor : neighbors()){ 
             if (neighbor instanceof Elephant){
@@ -40,7 +47,11 @@ public class Bush extends Organism implements Entity{
         hasActed=false;
     }    
     
-    
+    /**
+     * Returns the color of the bush based on its energy level.
+     * If the energy is greater than 60, it is green below that the bush is yellow.
+     * @return the color of the bush
+     */
     public Color getColor(){
         return(getEnergy()>60 ? Color.green : Color.yellow);
     }
