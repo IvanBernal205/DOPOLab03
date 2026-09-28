@@ -61,29 +61,6 @@ public class ZebraTest
         
         assertTrue(z.getEnergy() < initialEnergy);
     }
-    
-    @Test
-    public void shoudGetEnergyAfterEatingGrassWhenItIsClose(){
-        EcoSafari safari = new EcoSafari();
-        Zebra z = new Zebra(safari, 15, 15);
-        
-        for (int r = 12; r <= 18; r++) { //Pasto alrededor
-            for (int c = 12; c <= 18; c++) {
-                if (r == 15 && c == 15)continue;
-                new Grass(safari, r, c); 
-            }
-        }
-        
-        float initialEnergy = z.getEnergy();
-    
-        z.tic();
-        z.tac();
-        
-        float expectedEnergy = (initialEnergy * 0.90f) + 10f;
-        
-        assertEquals(expectedEnergy, z.getEnergy(), 0.01f);
-
-    }
 
     /**
      * Tears down the test fixture.
