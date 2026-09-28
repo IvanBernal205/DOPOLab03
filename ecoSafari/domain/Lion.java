@@ -19,7 +19,12 @@ public class Lion extends Organism implements Entity
         hasActed = false;
     }
 
-    public void tic(){ // Si un pasto se genera a donde se va a mover el leon desaparece
+    /**
+     * Decreases the energy of the lion by 10%. If the energy reaches 0, the lion disappears.
+     * The lion moves to a random adjacent cell. If it is next to a zebra, it eats it and gains 50% energy.
+     * If it is next to another lion and there is an empty cell next to them, they reproduce and create a new lion in the empty cell.
+     */
+    public void tic(){ 
         if(!hasActed){
             hasActed = true;
             int[] delta = randomDelta();
@@ -46,6 +51,10 @@ public class Lion extends Organism implements Entity
         hasActed=false;
     }
 
+    /**
+     * Generates a move.
+     * @return an array containing the row and column changes
+     */
     private int[] randomDelta(){
         int randR, randC;
         do{
@@ -55,6 +64,9 @@ public class Lion extends Organism implements Entity
         return new int[] {randR, randC};
     }
 
+    /**
+     * Eats a zebra if the lion is next to it.
+     */
     private void eat(){
         for (Entity n : neighbors()){
             if (n instanceof Zebra){
@@ -65,6 +77,9 @@ public class Lion extends Organism implements Entity
         }
     }
 
+    /**
+     * Reproduces a new lion if the lion is next to another lion and there is an empty cell next to them.
+     */
     private void reproduce(){
         int[] position = habitat.find(this);
         if (position == null) return;
@@ -73,7 +88,7 @@ public class Lion extends Organism implements Entity
                 if (i == 0 && j == 0) continue;
                 int r = position[0] + i;
                 int c = position[1] + j;
-                if (habitat.get(r, c) instanceof Earth && habitat.get(r + i, c + j) instanceof Lion){
+                if ((habitat.get(r, c) instanceof Earth || habitat.get(r, c) instanceof Grass) && habitat.get(r + i, c + j) instanceof Lion){
                     Lion cub = new Lion(habitat, r, c);
                     cub.hasActed = true; // evita que la cria actue en el mismo tic en que nace
                     return;
@@ -82,6 +97,10 @@ public class Lion extends Organism implements Entity
         }
     }
 
+    /**
+     * Replaces the entity with an earth entity in the same position.
+     * @param e the entity to be replaced
+     */
     private void replaceWithEarth(Entity e){
         int[] position = habitat.find(e);
         if (position != null){
@@ -89,6 +108,12 @@ public class Lion extends Organism implements Entity
         }
     }
 
+    /**
+     * Moves the lion to a new position if it is empty or contains earth or grass.
+     * @param deltaRows the change in rows
+     * @param deltaColumns the change in columns
+     * @return true if the move was successful, false otherwise
+     */
     public boolean move(int deltaRows, int deltaColumns){
         int[] position = habitat.find(this);
         boolean ok = false;
@@ -96,7 +121,7 @@ public class Lion extends Organism implements Entity
             int r = position[0] + deltaRows;
             int c = position[1] + deltaColumns;
             Entity target = habitat.get(r, c);
-            if (target instanceof Earth){
+            if (target instanceof Earth || target instanceof Grass){
                 habitat.set(this, r, c);
                 habitat.set(target, position[0], position[1]);
                 ok = true;

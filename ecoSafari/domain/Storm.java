@@ -40,6 +40,7 @@ public class Storm implements Entity{
         hasActed = true;
     }
     
+    
     public void tac(){
         if (!isCenter) return;
         int [] position = getHabitat().find(this);
@@ -56,6 +57,11 @@ public class Storm implements Entity{
         return habitat;
     }
     
+    /**
+     * Creates a storm in the adjacent cells of the given position.
+     * @param row the row of the center of the storm
+     * @param column the column of the center of the storm
+     */
     private void createAround(int row, int column){
         for (int i = -1; i <= 1; i++){
             for (int j = -1; j <= 1; j++){

@@ -1,5 +1,13 @@
 package domain;
 
+/**
+ * The EcoSafari class represents the environment where the simulation takes place.
+ * It contains a grid of entities and manages their interactions.
+ * 
+ * @author Ivan Andres Bernal Sabogal
+ * @author César Santiago Malaver Garnica 
+ * @version 26-09-2026
+ */
 public class EcoSafari{
 
     private static final int SIZE=25;
@@ -23,6 +31,8 @@ public class EcoSafari{
             }
         }
         
+        Lion simba = new Lion(this, 12, 12);
+
         // Bush mopane = new Bush(this, 12, 14);
         // Bush acacia = new Bush(this, 12, 7);
         
