@@ -2,7 +2,7 @@ package domain;
 import java.awt.Color;
 
 /**
- * Write a description of class Leopard here.
+ * The Leopard class represents a leopard in the EcoSafari simulation.
  *
  * @author César Santiago Malaver Garnica
  * @author Iván Andres Bernal Sabogal

@@ -3,6 +3,13 @@ import java.awt.Color;
 
 
 //Include the documentation
+/**
+ * The Elephant class represents an elephant in the EcoSafari simulation. 
+ * 
+ * @author Ivan Andres Bernal Sabogal
+ * @author César Santiago Malaver Garnica 
+ * @version 26-09-2026
+ */
 public class Elephant extends Organism implements Entity{
     private final EcoSafari habitat;
     protected boolean hasActed;

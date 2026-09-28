@@ -3,10 +3,11 @@ import java.awt.Color;
 
 
 /**
- * Write a description of class Earth here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * The Earth class represents a patch of earth in the EcoSafari simulation. 
+ * It can generate grass with a certain probability.
+ * @author Ivan Andres Bernal Sabogal
+ * @author César Santiago Malaver Garnica 
+ * @version 26-09-2026
  */
 public class Earth implements Entity
 {

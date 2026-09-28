@@ -2,6 +2,14 @@ package domain;
 import java.awt.Color;
 
 //Include the documentation
+/**
+ * The Entity interface represents an entity in the EcoSafari simulation. 
+ * It defines the basic behaviors and properties that all entities must implement.
+ * 
+ * @author Ivan Andres Bernal Sabogal
+ * @author César Santiago Malaver Garnica 
+ * @version 26-09-2026
+ */
 public interface Entity{
     public static final int SQUARE = 2;
     public static final int ROUND = 1;
