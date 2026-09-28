@@ -34,6 +34,8 @@ public class EcoSafari{
         
         //Leopard ivan = new Leopard(this, 21,21);
         //Leopard santiago = new Leopard (this, 20, 20);
+        
+        Zebra z = new Zebra(this, 21, 21);
     }
     
     /**

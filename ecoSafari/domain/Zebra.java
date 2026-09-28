@@ -33,24 +33,59 @@ public class Zebra extends Organism implements Entity{
     }
     
     public void tic(){
+        int[] position = getHabitat().find(this);
+        int r = position[0];
+        int c = position[1];
         if(!hasActed){
+            int[] delta = randomDelta();
+            int cont = 0;
+            boolean moved = move(delta[0], delta[1]);
+            
+            while(!moved && cont<8){
+                delta = randomDelta();
+                moved = move(delta[0], delta[1]);
+                cont++;
+            }
+            if (moved){
+                changeEnergy(-(getEnergy() * 0.10f));
+            }
+            if (getEnergy()==0){
+                    replaceWithEarth(this);
+                    return;
+                }
+            
             if (getEnergy() == 0) disappear();
+            
             Entity[] neighbors = this.neighbors();
             for (Entity n : neighbors){
                 if (n instanceof Grass) {
+                    int[] positionG = getHabitat().find(n);
                     n.disappear();
-                    changeEnergy(10);
+                    new Earth(getHabitat(), positionG[0], positionG[1]);
+                    this.changeEnergy(10);
                     break;
                 }
             }
         }
-        if (move(-2,-2)); //Revisar tema de energia
-        if (getEnergy() == 0) disappear();
+        if (getEnergy() == 0) {
+            disappear();
+            replaceWithEarth(this);
+            return;
+        }
         hasActed = true;
     }
     
     public void tac(){
         hasActed = false;
+    }
+    
+    private int[] randomDelta(){
+        int randR, randC;
+        do{
+            randR = ((int) (Math.random() * 3) - 1) * 2;
+            randC = ((int) (Math.random() * 3) - 1) * 2;
+        }while(randR == 0 && randC == 0);
+        return new int[] {randR, randC};
     }
 
     public boolean move(int deltaRows, int deltaColumns){
@@ -60,12 +95,19 @@ public class Zebra extends Organism implements Entity{
             int r = position[0] + deltaRows;
             int c = position[1] + deltaColumns;
             Entity target = habitat.get(r, c);
-            if (target instanceof Earth){
+            if (target instanceof Earth || target instanceof Grass){
                 habitat.set(this, r, c);
                 habitat.set(target, position[0], position[1]);
                 ok = true;
             }
         }
         return ok;
+    }
+    
+    private void replaceWithEarth(Entity e){
+        int[] position = habitat.find(e);
+        if (position != null){
+            new Earth(habitat, position[0], position[1]);
+        }
     }
 }
