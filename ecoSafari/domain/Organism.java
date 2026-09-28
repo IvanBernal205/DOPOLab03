@@ -7,7 +7,7 @@ public abstract class Organism{
     /**Create a new Organism
      */
     public Organism(){
-        energy=40;
+        energy=100;
     }
 
 

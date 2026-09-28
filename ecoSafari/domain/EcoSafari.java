@@ -24,28 +24,44 @@ public class EcoSafari{
     /**
      * Pupulates the EcoSafari with some entities
      */
-    public void someEntities(){   
-        for(int i = 0; i<SIZE; i++){
-            for(int j = 0; j<SIZE; j++){
-                new Earth(this, i, j);
-            }
-        }
-        
-        Lion simba = new Lion(this, 12, 12);
+    public void someEntities(){  
+        // Primera parte la sustentación 
 
-        // Bush mopane = new Bush(this, 12, 14);
-        // Bush acacia = new Bush(this, 12, 7);
+        Bush mopane = new Bush(this, 12, 14);
+        Bush acacia = new Bush(this, 12, 7);
         
-        // Storm thor = new Storm(this, 12, 3);
-        // Storm tempest = new Storm(this, 16, 10);
+        Storm thor = new Storm(this, 12, 3);
+        Storm tempest = new Storm(this, 16, 10);
         
-        // Mamut bernal = new Mamut(this, 0, 0);
-        // Mamut malaver = new Mamut(this, 25, 25);
+        Mamut bernal = new Mamut(this, 0, 0);
+        Mamut malaver = new Mamut(this, 25, 25);
         
-        //Leopard ivan = new Leopard(this, 21,21);
-        //Leopard santiago = new Leopard (this, 20, 20);
+        Leopard ivan = new Leopard(this, 21,21);
+        Leopard santiago = new Leopard (this, 20, 20);
         
-        Zebra z = new Zebra(this, 21, 21);
+        //Segunda parte de la sustentación
+
+        // for(int i = 0; i<SIZE; i++){
+        //     for(int j = 0; j<SIZE; j++){
+        //         new Earth(this, i, j);
+        //     }
+        // }
+        
+        // Lion simba = new Lion(this, 12, 12);
+        // Lion nala = new Lion(this, 3, 20);
+        // Lion scar = new Lion(this, 20, 4);
+        // Lion mufasa = new Lion(this, 20, 20);
+
+        // Zebra marty = new Zebra(this, 2, 2);
+        // Zebra gloria = new Zebra(this, 2, 6);
+        // Zebra rayas = new Zebra(this, 6, 10);
+        // Zebra luna = new Zebra(this, 8, 18);
+        // Zebra sol = new Zebra(this, 10, 3);
+        // Zebra estrella = new Zebra(this, 15, 14);
+        // Zebra trueno = new Zebra(this, 17, 9);
+        // Zebra brisa = new Zebra(this, 22, 12);
+        // Zebra nube = new Zebra(this, 22, 16);
+        // Zebra roca = new Zebra(this, 14, 22);
     }
     
     /**

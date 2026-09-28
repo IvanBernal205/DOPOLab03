@@ -1,26 +1,11 @@
 #BlueJ package file
 editor.fx.0.height=739
-<<<<<<< HEAD
-editor.fx.0.width=1096
-editor.fx.0.x=662
-editor.fx.0.y=211
-objectbench.height=186
-objectbench.width=1133
-package.divider.horizontal=0.6
-package.divider.vertical=0.7964135021097046
-package.editor.height=748
-package.editor.width=1806
-package.editor.x=0
-package.editor.y=0
-package.frame.height=1048
-package.frame.width=1936
-=======
-editor.fx.0.width=813
+editor.fx.0.width=816
 editor.fx.0.x=552
 editor.fx.0.y=98
 objectbench.height=159
-objectbench.width=931
-package.divider.horizontal=0.5997442455242967
+objectbench.width=844
+package.divider.horizontal=0.5441176470588235
 package.divider.vertical=0.7756756756756756
 package.editor.height=567
 package.editor.width=1444
@@ -28,7 +13,6 @@ package.editor.x=126
 package.editor.y=150
 package.frame.height=840
 package.frame.width=1600
->>>>>>> origin/feat/reto
 package.numDependencies=0
 package.numTargets=3
 package.showExtends=true
@@ -55,5 +39,5 @@ target3.height=62
 target3.name=domain
 target3.type=PackageTarget
 target3.width=80
-target3.x=280
-target3.y=130
+target3.x=330
+target3.y=140
