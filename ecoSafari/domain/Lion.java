@@ -19,7 +19,12 @@ public class Lion extends Organism implements Entity
         hasActed = false;
     }
 
-    public void tic(){ // Si un pasto se genera a donde se va a mover el leon desaparece
+    /**
+     * Decreases the energy of the lion by 10%. If the energy reaches 0, the lion disappears.
+     * The lion moves to a random adjacent cell. If it is next to a zebra, it eats it and gains 50% energy.
+     * If it is next to another lion and there is an empty cell next to them, they reproduce and create a new lion in the empty cell.
+     */
+    public void tic(){ 
         if(!hasActed){
             hasActed = true;
             int[] delta = randomDelta();
@@ -46,6 +51,10 @@ public class Lion extends Organism implements Entity
         hasActed=false;
     }
 
+    /**
+     * Generates a move.
+     * @return an array containing the row and column changes
+     */
     private int[] randomDelta(){
         int randR, randC;
         do{
@@ -96,7 +105,7 @@ public class Lion extends Organism implements Entity
             int r = position[0] + deltaRows;
             int c = position[1] + deltaColumns;
             Entity target = habitat.get(r, c);
-            if (target instanceof Earth){
+            if (target instanceof Earth || target instanceof Grass){
                 habitat.set(this, r, c);
                 habitat.set(target, position[0], position[1]);
                 ok = true;

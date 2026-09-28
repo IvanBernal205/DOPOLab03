@@ -25,6 +25,10 @@ public class Leopard extends Organism implements Entity{
         return habitat;
     }
     
+    /**
+     * Returns the color of the leopard based on its energy level.
+     * @return the color of the leopard
+     */
     public final Color getColor(){
         return (getEnergy()>=40 ? new Color (204, 153, 0):new Color(111, 78, 55));
     }
@@ -33,6 +37,9 @@ public class Leopard extends Organism implements Entity{
         return Entity.ROUND;
     }
     
+    /**
+     * Decreases the energy of the leopard by 10. If the energy reaches 0, the leopard disappears.
+     */
     public void tic(){
         if (!hasActed){
             changeEnergy(-10);

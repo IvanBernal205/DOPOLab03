@@ -23,6 +23,8 @@ public class EcoSafari{
             }
         }
         
+        Lion simba = new Lion(this, 12, 12);
+
         // Bush mopane = new Bush(this, 12, 14);
         // Bush acacia = new Bush(this, 12, 7);
         

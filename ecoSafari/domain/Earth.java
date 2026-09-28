@@ -21,6 +21,9 @@ public class Earth implements Entity
 
     }
     
+    /**
+     * With a probability of 1/10, the earth generates a grass in its position.
+     */
     public void tac(){
         int randNum = (int) (Math.random() * 10) + 1;
         if(randNum == 1){
