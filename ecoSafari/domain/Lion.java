@@ -3,10 +3,11 @@ import java.awt.Color;
 
 
 /**
- * Write a description of class Lion here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * The Lion class represents a lion in the EcoSafari simulation.
+ *
+ * @author César Santiago Malaver Garnica
+ * @author Iván Andres Bernal Sabogal
+ * @version 27-09-2026
  */
 public class Lion extends Organism implements Entity
 {

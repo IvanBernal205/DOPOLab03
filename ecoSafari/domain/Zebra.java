@@ -50,12 +50,10 @@ public class Zebra extends Organism implements Entity{
                 changeEnergy(-(getEnergy() * 0.10f));
             }
             if (getEnergy()==0){
-                    replaceWithEarth(this);
-                    return;
-                }
-            
-            if (getEnergy() == 0) disappear();
-            
+                replaceWithEarth(this);
+                return;
+            }
+
             Entity[] neighbors = this.neighbors();
             for (Entity n : neighbors){
                 if (n instanceof Grass) {
@@ -66,11 +64,6 @@ public class Zebra extends Organism implements Entity{
                     break;
                 }
             }
-        }
-        if (getEnergy() == 0) {
-            disappear();
-            replaceWithEarth(this);
-            return;
         }
         hasActed = true;
     }

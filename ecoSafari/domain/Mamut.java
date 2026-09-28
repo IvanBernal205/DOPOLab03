@@ -3,10 +3,11 @@ import java.awt.Color;
 
 
 /**
- * Write a description of class Mamut here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * The Mamut
+ *
+ * @author César Santiago Malaver Garnica
+ * @author Iván Andres Bernal Sabogal
+ * @version 27-09-2026
  */
 public class Mamut extends Elephant
 {
