@@ -1,5 +1,7 @@
 package domain;
 
+import java.io.*;
+
 /**
  * The EcoSafari class represents the environment where the simulation takes place.
  * It contains a grid of entities and manages their interactions.
@@ -37,7 +39,7 @@ public class EcoSafari{
         Storm tempest = new Storm(this, 16, 10);
         
         Mamut bernal = new Mamut(this, 0, 0);
-        Mamut malaver = new Mamut(this, 24, 24);
+        // Mamut malaver = new Ma   mut(this, 23, 23);
         
         Leopard ivan = new Leopard(this, 21,21);
         Leopard santiago = new Leopard (this, 20, 20);
@@ -113,18 +115,18 @@ public class EcoSafari{
      * @return an array {row, column} if the entity is found. null otherwise
      */
     public int[]  find(Entity e){
-       int[] position=null;
-       for (int r=0 ; r<SIZE && position== null; r++){
-           for (int c=0 ; c<SIZE && position==null ;c++){
-               if (cells[r][c]==e){
-                   position=new int [] {r,c};
-               }
-           }
-       }
-       return position;
+        int[] position=null;
+        for (int r=0 ; r<SIZE && position== null; r++){
+            for (int c=0 ; c<SIZE && position==null ;c++){
+                if (cells[r][c]==e){
+                    position=new int [] {r,c};
+                }
+            }
+        }
+        return position;
     }
     
- 
+
     /**
      * Advances the simulation by one time step
      */
@@ -144,4 +146,54 @@ public class EcoSafari{
         }
     }
 
+    /**
+     * Opens a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static boolean open(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Open en construcción. Archivo " + file.getName());
+    }
+
+    /**
+     * Saves a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static  boolean saveAs(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
+    }
+
+    /**
+     * Imports a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static boolean import_(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion import en construcción. Archivo " + file.getName());
+    }
+    
+    /**
+     * Exports a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static boolean exportAs(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Export As en construcción. Archivo " + file.getName());
+    }
+
+
+
+
+    public static boolean open00(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Open en construcción. Archivo " + file.getName());
+    }
+
+    public static  boolean saveAs00(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
+    }
 }

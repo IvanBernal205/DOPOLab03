@@ -14,15 +14,25 @@ public class EcoSafariGUI extends JFrame{
     private JPanel  controlPanel;
     private PhotoEcoSafari photo;
     private EcoSafari theEcoSafari;
-   
+
+    private JMenuItem optionNew;
+    private JMenuItem optionSaveAs;
+    private JMenuItem optionOpen;
+    private JMenuItem optionImport;
+    private JMenuItem optionExportAs;
+    private JMenuItem optionExit;
+
     
     private EcoSafariGUI() {
         theEcoSafari=new EcoSafari();
         SIZE=theEcoSafari.getSize();
         prepareElements();
         prepareActions();
+
+        prepareView();
+        prepareController();
     }
-    
+
     private void prepareElements() {
         setTitle("EcoSafari");
         photo=new PhotoEcoSafari(this);
@@ -40,6 +50,88 @@ public class EcoSafariGUI extends JFrame{
         ticTacButton.addActionListener(e-> ticTacButtonAction());
     }
 
+    public void prepareView(){
+        prepareViewMenu();
+    }
+
+    public void prepareViewMenu(){
+        JMenuBar menuBar = new JMenuBar();
+        this.setJMenuBar(menuBar);
+        JMenu menu1 = new JMenu("Archivo");
+        menuBar.add(menu1);
+
+        optionNew = new JMenuItem("Nuevo");
+        optionOpen = new JMenuItem("Abrir");
+        optionSaveAs = new JMenuItem("Salvar como");
+        optionImport = new JMenuItem("Importar");
+        optionExportAs = new JMenuItem("Exportar");
+        optionExit = new JMenuItem("Salir");
+
+        menu1.add(optionNew);
+        menu1.add(optionOpen);
+        menu1.add(optionSaveAs);
+        menu1.add(optionImport);
+        menu1.add(optionExportAs);
+        menu1.addSeparator();
+        menu1.add(optionExit);
+    }
+
+    public void prepareController(){
+        prepareControllerMenu();
+    }
+
+    public void prepareControllerMenu(){
+        
+        optionExit.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e){
+                System.exit(0);
+            }
+        });
+
+        optionNew.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e){
+                theEcoSafari=new EcoSafari();
+                prepareElements();
+            }
+        });
+
+        optionImport.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    JFileChooser selector = new JFileChooser();
+                    int result = selector.showSaveDialog(null);
+
+                    if (result == 0){
+                        File fileToImport = selector.getSelectedFile();
+                        EcoSafari.import_(fileToImport);
+                    }
+                }catch(EcoSafariException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+
+        optionExportAs.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    JFileChooser selector = new JFileChooser();
+                    int result = selector.showSaveDialog(null);
+
+                    if (result == 0){
+                        File fileToImport = selector.getSelectedFile();
+                        EcoSafari.saveAs(fileToImport);
+                    }
+                }catch(EcoSafariException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+    }
+
     private void ticTacButtonAction() {
         theEcoSafari.ticTac();
         photo.repaint();
@@ -49,7 +141,7 @@ public class EcoSafariGUI extends JFrame{
         return theEcoSafari;
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args){
         EcoSafariGUI cg=new EcoSafariGUI();
         cg.setVisible(true);
     }  
@@ -68,7 +160,7 @@ public class EcoSafariGUI extends JFrame{
         public void paintComponent(Graphics g){
             EcoSafari theEcoSafari=gui.gettheEcoSafari();
             super.paintComponent(g);
-             
+            
             for (int c=0;c<=theEcoSafari.getSize();c++){
                 g.drawLine(c*gui.SIDE,0,c*gui.SIDE,theEcoSafari.getSize()*gui.SIDE);
             }
