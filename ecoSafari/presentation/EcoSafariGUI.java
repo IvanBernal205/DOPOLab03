@@ -93,7 +93,7 @@ public class EcoSafariGUI extends JFrame{
             @Override 
             public void actionPerformed(ActionEvent e){
                 theEcoSafari=new EcoSafari();
-                prepareElements();
+                photo.repaint();
             }
         });
 
@@ -102,28 +102,11 @@ public class EcoSafariGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 try{
                     JFileChooser selector = new JFileChooser();
-                    int result = selector.showSaveDialog(null);
+                    int result = selector.showOpenDialog(null);
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
                         EcoSafari.import_(fileToImport);
-                    }
-                }catch(EcoSafariException ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
-            }
-        });
-
-        optionExportAs.addActionListener(new ActionListener() {
-            @Override 
-            public void actionPerformed(ActionEvent e) {
-                try{
-                    JFileChooser selector = new JFileChooser();
-                    int result = selector.showSaveDialog(null);
-
-                    if (result == 0){
-                        File fileToImport = selector.getSelectedFile();
-                        EcoSafari.exportAs(fileToImport);
                     }
                 }catch(EcoSafariException ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -156,13 +139,32 @@ public class EcoSafariGUI extends JFrame{
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
-                        theEcoSafari.saveAs(fileToImport, theEcoSafari);
+                        EcoSafari.saveAs(fileToImport, theEcoSafari);
                     }
                 }catch(EcoSafariException ex){
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Error General");
                 }
             }
         });
+
+        optionOpen.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e){
+                try {
+                    JFileChooser selector = new JFileChooser();
+                    int result = selector.showOpenDialog(null);
+                    
+                    if (result == 0){
+                        File fileToOpen = selector.getSelectedFile();
+                        theEcoSafari = EcoSafari.open(fileToOpen);
+                        photo.repaint();
+                    }
+                } catch (EcoSafariException ex){
+                    JOptionPane.showMessageDialog(null, "Error General");
+                }
+            }
+        });
+
     }
 
     private void ticTacButtonAction() {

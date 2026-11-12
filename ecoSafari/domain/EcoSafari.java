@@ -188,11 +188,6 @@ public class EcoSafari implements Serializable{
 
 
 
-
-    public static boolean open(File file) throws EcoSafariException{
-        return false;
-    }
-
     public static void saveAs(File file, EcoSafari safari) throws EcoSafariException{
         ObjectOutputStream toSave = null;
         try{
@@ -209,5 +204,24 @@ public class EcoSafari implements Serializable{
                 }
             }
         }
+    }
+
+    public static EcoSafari open(File file) throws EcoSafariException{
+        ObjectInputStream toOpen = null;
+        try{
+            toOpen = new ObjectInputStream(new FileInputStream(file));
+            return (EcoSafari) toOpen.readObject();
+        } catch (IOException | ClassNotFoundException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR); 
+        } finally {
+            if (toOpen != null) {
+                try{
+                    toOpen.close();
+                } catch (IOException e){
+                    throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+                }
+            }
+        }
+
     }
 }
