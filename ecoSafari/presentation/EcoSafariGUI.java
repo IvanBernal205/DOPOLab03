@@ -123,7 +123,40 @@ public class EcoSafariGUI extends JFrame{
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
-                        EcoSafari.saveAs(fileToImport);
+                        EcoSafari.exportAs(fileToImport);
+                    }
+                }catch(EcoSafariException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+
+        optionExportAs.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    JFileChooser selector = new JFileChooser();
+                    int result = selector.showSaveDialog(null);
+
+                    if (result == 0){
+                        File fileToImport = selector.getSelectedFile();
+                        EcoSafari.exportAs(fileToImport);
+                    }
+                }catch(EcoSafariException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        });
+        optionSaveAs.addActionListener(new ActionListener() {
+            @Override 
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    JFileChooser selector = new JFileChooser();
+                    int result = selector.showSaveDialog(null);
+
+                    if (result == 0){
+                        File fileToImport = selector.getSelectedFile();
+                        theEcoSafari.saveAs(fileToImport, theEcoSafari);
                     }
                 }catch(EcoSafariException ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());

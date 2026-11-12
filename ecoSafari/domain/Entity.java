@@ -1,5 +1,6 @@
 package domain;
 import java.awt.Color;
+import java.io.Serializable;
 
 //Include the documentation
 /**
@@ -10,7 +11,7 @@ import java.awt.Color;
  * @author César Santiago Malaver Garnica 
  * @version 26-09-2026
  */
-public interface Entity{
+public interface Entity extends Serializable{
     public static final int SQUARE = 2;
     public static final int ROUND = 1;
     

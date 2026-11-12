@@ -10,7 +10,7 @@ import java.io.*;
  * @author César Santiago Malaver Garnica 
  * @version 26-09-2026
  */
-public class EcoSafari{
+public class EcoSafari implements Serializable{
 
     private static final int SIZE=25;
     private Entity[][] cells;
@@ -152,7 +152,7 @@ public class EcoSafari{
      * @return true if the action was succesfull, else false
      * @throws EcoSafariException
      */
-    public static boolean open(File file) throws EcoSafariException{
+    public static boolean open00(File file) throws EcoSafariException{
         throw new EcoSafariException("Opcion Open en construcción. Archivo " + file.getName());
     }
 
@@ -162,7 +162,7 @@ public class EcoSafari{
      * @return true if the action was succesfull, else false
      * @throws EcoSafariException
      */
-    public static  boolean saveAs(File file) throws EcoSafariException{
+    public static  boolean saveAs00(File file) throws EcoSafariException{
         throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
     }
 
@@ -189,11 +189,25 @@ public class EcoSafari{
 
 
 
-    public static boolean open00(File file) throws EcoSafariException{
-        throw new EcoSafariException("Opcion Open en construcción. Archivo " + file.getName());
+    public static boolean open(File file) throws EcoSafariException{
+        return false;
     }
 
-    public static  boolean saveAs00(File file) throws EcoSafariException{
-        throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
+    public static void saveAs(File file, EcoSafari safari) throws EcoSafariException{
+        ObjectOutputStream toSave = null;
+        try{
+            toSave = new ObjectOutputStream(new FileOutputStream(file));
+            toSave.writeObject(safari);
+        } catch (IOException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        } finally {
+            if (toSave != null) {
+                try{
+                    toSave.close();
+                } catch (IOException e){
+                    throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+                }
+            }
+        }
     }
 }

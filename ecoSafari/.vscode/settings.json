@@ -1,0 +1,11 @@
+{
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar"
+        ],
+        "exclude": [
+            "d:\\Universidad\\5_Quinto_Semestre\\DOPO\\Laboratorios\\Lab5\\Entregado\\BernalS-MalaverG\\HungrySnake\\lib\\junit-4.13.2.jar",
+            "lib/junit-4.12.jar"
+        ]
+    }
+}
