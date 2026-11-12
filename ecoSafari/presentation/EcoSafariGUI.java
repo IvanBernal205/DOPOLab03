@@ -106,7 +106,8 @@ public class EcoSafariGUI extends JFrame{
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
-                        EcoSafari.import_(fileToImport);
+                        EcoSafari.import_(fileToImport, theEcoSafari);
+                        photo.repaint();
                     }
                 }catch(EcoSafariException ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -123,7 +124,7 @@ public class EcoSafariGUI extends JFrame{
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
-                        EcoSafari.exportAs(fileToImport);
+                        EcoSafari.exportAs(fileToImport, theEcoSafari);
                     }
                 }catch(EcoSafariException ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage());

@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * The EcoSafari class represents the environment where the simulation takes place.
@@ -172,7 +173,7 @@ public class EcoSafari implements Serializable{
      * @return true if the action was succesfull, else false
      * @throws EcoSafariException
      */
-    public static boolean import_(File file) throws EcoSafariException{
+    public static boolean import00(File file) throws EcoSafariException{
         throw new EcoSafariException("Opcion import en construcción. Archivo " + file.getName());
     }
     
@@ -182,7 +183,7 @@ public class EcoSafari implements Serializable{
      * @return true if the action was succesfull, else false
      * @throws EcoSafariException
      */
-    public static boolean exportAs(File file) throws EcoSafariException{
+    public static boolean exportAs00(File file) throws EcoSafariException{
         throw new EcoSafariException("Opcion Export As en construcción. Archivo " + file.getName());
     }
 
@@ -222,6 +223,87 @@ public class EcoSafari implements Serializable{
                 }
             }
         }
-
     }
+
+    public static void exportAs(File file, EcoSafari safari) throws EcoSafariException{
+        PrintWriter toExport = null;
+        try{
+            toExport = new PrintWriter(new FileWriter(file));
+            for (int r = 0; r < safari.getSize(); r++){
+                for (int c = 0; c < safari.getSize(); c++){
+                    Entity e = safari.get(r, c);
+                    if (e != null) toExport.println(e.getClass().getSimpleName() + " " + r + ", " + c);
+                }
+            }
+        } catch (IOException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        } finally {
+            if (toExport != null) {
+                toExport.close();
+            }
+        }
+    }
+
+
+    public static void import_(File file, EcoSafari safari) throws EcoSafariException{
+        Scanner scan = null;
+        try{
+            scan = new Scanner(file);
+            while (scan.hasNextLine()){
+                String line = scan.nextLine().trim();
+                if (!line.isEmpty()){
+                    //0 Clase 1 row 2 column
+                    String[] parts = line.split(" ");
+                    String type = parts[0];
+                    int r = Integer.parseInt(parts[1].replace(",", ""));
+                    int c = Integer.parseInt(parts[2]);
+                    addEntities(type,safari, r, c);
+
+                }
+            }
+        } catch (FileNotFoundException | ArrayIndexOutOfBoundsException | NumberFormatException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        } finally {
+            if (scan != null) scan.close();
+        }
+        
+    }
+
+    private static void addEntities(String type, EcoSafari safari, int r, int c) throws EcoSafariException{
+        switch (type) {
+            case "Bush":
+                new Bush(safari, r, c);
+                break;
+            case "Earth":
+                new Earth(safari, r, c);
+                break;
+            case "Elephant":
+                new Elephant(safari, r, c);
+                break;
+            case "Grass":
+                new Grass(safari, r, c);
+                break;
+            case "Leopard":
+                new Leopard(safari, r, c);
+                break;
+            case "Lion":
+                new Lion(safari, r, c);
+                break;
+            case "Mamut":
+                new Mamut(safari, r, c);
+                break;
+            case "Storm":
+                new Storm(safari, r, c);
+                break;
+            case "Zebra":
+                new Zebra(safari, r, c);
+                break;
+            default:
+                throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        }
+    }
+
+    
+
+
 }
