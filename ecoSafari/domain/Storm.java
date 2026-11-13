@@ -11,7 +11,6 @@ import java.awt.Color;
 public class Storm implements Entity{
     private EcoSafari habitat;
     private boolean hasActed;
-    private boolean isCenter;
     
     /**
      * @param row Center of the storm.
@@ -19,30 +18,17 @@ public class Storm implements Entity{
     public Storm(EcoSafari habitat, int row, int column){
         this.habitat = habitat;
         habitat.set((Entity) this, row, column);
-        this.isCenter = true;
         createAround(row, column);
         hasActed = false;
     }
     
-    public Storm(EcoSafari habitat, int row, int column, boolean isCenter){
-        this.habitat = habitat;
-        habitat.set((Entity) this, row, column);
-        this.isCenter = false;
-        hasActed = false;
-    }
-    
     public void tic(){ 
-        if(!isCenter){
-            disappear();
-            return;
-        }
         if (!hasActed && move(-1, 1));
         hasActed = true;
     }
     
     
     public void tac(){
-        if (!isCenter) return;
         int [] position = getHabitat().find(this);
         if (position == null) return;
         createAround(position[0], position[1]);
@@ -50,7 +36,7 @@ public class Storm implements Entity{
     }
     
     public Color getColor(){
-        return (isCenter ? Color.black : Color.gray);
+        return Color.black;
     }
     
     public EcoSafari getHabitat(){
@@ -63,11 +49,15 @@ public class Storm implements Entity{
      * @param column the column of the center of the storm
      */
     private void createAround(int row, int column){
+        int size = habitat.getSize();
         for (int i = -1; i <= 1; i++){
             for (int j = -1; j <= 1; j++){
                 if (i == 0 && j == 0) continue;
-                if (getHabitat().get(row + i, column + j) != null) continue;
-                new Storm(getHabitat(), row + i, column + j, false);
+                int r = (row + i + size) % size;
+                int c = (column + j + size) % size;
+                if (getHabitat().get(r, c) != null) continue;
+                
+                new Stella(getHabitat(), r, c);
             }
         }
     }

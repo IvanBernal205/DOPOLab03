@@ -21,53 +21,6 @@ public class EcoSafari implements Serializable{
      */
     public EcoSafari() {
         cells=new Entity[SIZE][SIZE];
-        someEntities();
-    }
-
-    /**
-     * Pupulates the EcoSafari with some entities
-     */
-    public void someEntities(){  
-        // Primera parte la sustentación 
-        
-        Elephant dumbo = new Elephant(this, 5, 5);
-        Elephant babar = new Elephant(this, 10, 10);
-        
-        Bush mopane = new Bush(this, 12, 14);
-        Bush acacia = new Bush(this, 12, 7);
-        
-        Storm thor = new Storm(this, 12, 3);
-        Storm tempest = new Storm(this, 16, 10);
-        
-        Mamut bernal = new Mamut(this, 0, 0);
-        // Mamut malaver = new Ma   mut(this, 23, 23);
-        
-        Leopard ivan = new Leopard(this, 21,21);
-        Leopard santiago = new Leopard (this, 20, 20);
-        
-        //Segunda parte de la sustentación
-
-        // for(int i = 0; i<SIZE; i++){
-        //     for(int j = 0; j<SIZE; j++){
-        //         new Earth(this, i, j);
-        //     }
-        // }
-        
-        // Lion simba = new Lion(this, 12, 12);
-        // Lion nala = new Lion(this, 3, 20);
-        // Lion scar = new Lion(this, 20, 4);
-        // Lion mufasa = new Lion(this, 20, 20);
-
-        // Zebra marty = new Zebra(this, 2, 2);
-        // Zebra gloria = new Zebra(this, 2, 6);
-        // Zebra rayas = new Zebra(this, 6, 10);
-        // Zebra luna = new Zebra(this, 8, 18);
-        // Zebra sol = new Zebra(this, 10, 3);
-        // Zebra estrella = new Zebra(this, 15, 14);
-        // Zebra trueno = new Zebra(this, 17, 9);
-        // Zebra brisa = new Zebra(this, 22, 12);
-        // Zebra nube = new Zebra(this, 22, 16);
-        // Zebra roca = new Zebra(this, 14, 22);
     }
     
     /**
@@ -157,57 +110,7 @@ public class EcoSafari implements Serializable{
         throw new EcoSafariException("Opcion Open en construcción. Archivo " + file.getName());
     }
 
-    /**
-     * Saves a file
-     * @param file
-     * @return true if the action was succesfull, else false
-     * @throws EcoSafariException
-     */
-    public static  boolean saveAs00(File file) throws EcoSafariException{
-        throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
-    }
-
-    /**
-     * Imports a file
-     * @param file
-     * @return true if the action was succesfull, else false
-     * @throws EcoSafariException
-     */
-    public static boolean import00(File file) throws EcoSafariException{
-        throw new EcoSafariException("Opcion import en construcción. Archivo " + file.getName());
-    }
-    
-    /**
-     * Exports a file
-     * @param file
-     * @return true if the action was succesfull, else false
-     * @throws EcoSafariException
-     */
-    public static boolean exportAs00(File file) throws EcoSafariException{
-        throw new EcoSafariException("Opcion Export As en construcción. Archivo " + file.getName());
-    }
-
-
-
-    public static void saveAs(File file, EcoSafari safari) throws EcoSafariException{
-        ObjectOutputStream toSave = null;
-        try{
-            toSave = new ObjectOutputStream(new FileOutputStream(file));
-            toSave.writeObject(safari);
-        } catch (IOException e){
-            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
-        } finally {
-            if (toSave != null) {
-                try{
-                    toSave.close();
-                } catch (IOException e){
-                    throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
-                }
-            }
-        }
-    }
-
-    public static EcoSafari open(File file) throws EcoSafariException{
+    public static EcoSafari open01(File file) throws EcoSafariException{
         ObjectInputStream toOpen = null;
         try{
             toOpen = new ObjectInputStream(new FileInputStream(file));
@@ -225,27 +128,93 @@ public class EcoSafari implements Serializable{
         }
     }
 
-    public static void exportAs(File file, EcoSafari safari) throws EcoSafariException{
-        PrintWriter toExport = null;
+    public static EcoSafari open(File file) throws EcoSafariException{
+        if (!file.getName().endsWith(".dat")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_DAT);
+        ObjectInputStream toOpen = null;
         try{
-            toExport = new PrintWriter(new FileWriter(file));
-            for (int r = 0; r < safari.getSize(); r++){
-                for (int c = 0; c < safari.getSize(); c++){
-                    Entity e = safari.get(r, c);
-                    if (e != null) toExport.println(e.getClass().getSimpleName() + " " + r + ", " + c);
-                }
-            }
-        } catch (IOException e){
-            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+            toOpen = new ObjectInputStream(new FileInputStream(file));
+            return (EcoSafari) toOpen.readObject();
+        } catch (FileNotFoundException e) {
+            throw new EcoSafariException(EcoSafariException.FILE_NOT_FOUND);
+        } catch (InvalidClassException e) {
+            throw new EcoSafariException(EcoSafariException.INCOMPATIBLE_VERSION);
+        } catch (ClassNotFoundException e) {
+            throw new EcoSafariException(EcoSafariException.CLASS_NOT_FOUND);
+        } catch (IOException e) {
+            throw new EcoSafariException(EcoSafariException.ERROR_READING);
         } finally {
-            if (toExport != null) {
-                toExport.close();
+            if (toOpen != null) {
+                try{
+                    toOpen.close();
+                } catch (IOException e){
+                    throw new EcoSafariException(EcoSafariException.ERROR_READING);
+                }
             }
         }
     }
 
+    /**
+     * Saves a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static  boolean saveAs00(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Save As en construcción. Archivo " + file.getName());
+    }
 
-    public static void import_(File file, EcoSafari safari) throws EcoSafariException{
+    public static void saveAs01(File file, EcoSafari safari) throws EcoSafariException{
+        ObjectOutputStream toSave = null;
+        try{
+            toSave = new ObjectOutputStream(new FileOutputStream(file));
+            toSave.writeObject(safari);
+        } catch (IOException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        } finally {
+            if (toSave != null) {
+                try{
+                    toSave.close();
+                } catch (IOException e){
+                    throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+                }
+            }
+        }
+    }
+
+    public static void saveAs(File file, EcoSafari safari) throws EcoSafariException{
+        if (!file.getName().endsWith(".dat")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_DAT);
+        ObjectOutputStream toSave = null;
+        try{
+            toSave = new ObjectOutputStream(new FileOutputStream(file));
+            toSave.writeObject(safari);
+        } catch (FileNotFoundException e) {
+            throw new EcoSafariException(EcoSafariException.FILE_NOT_FOUND);
+        } catch (NotSerializableException e) {
+            throw new EcoSafariException(EcoSafariException.NOT_SERIALIZABLE);
+        } catch (IOException e) {
+            throw new EcoSafariException(EcoSafariException.ERROR_WHILE_WRITING);
+        } finally {
+            if (toSave != null) {
+                try{
+                    toSave.close();
+                } catch (IOException e){
+                    throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+                }
+            }
+        }
+    }
+
+    /**
+     * Imports a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static boolean import00(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion import en construcción. Archivo " + file.getName());
+    }
+
+    public static void import01(File file, EcoSafari safari) throws EcoSafariException{
         Scanner scan = null;
         try{
             scan = new Scanner(file);
@@ -266,7 +235,83 @@ public class EcoSafari implements Serializable{
         } finally {
             if (scan != null) scan.close();
         }
-        
+    }
+
+    public static void import_(File file, EcoSafari safari) throws EcoSafariException{
+        if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
+        Scanner scan = null;
+        try{
+            scan = new Scanner(file);
+            while (scan.hasNextLine()){
+                String line = scan.nextLine().trim();
+                if (!line.isEmpty()){
+                    //0 Clase 1 row 2 column
+                    String[] parts = line.split(" ");
+                    String type = parts[0];
+                    int r = Integer.parseInt(parts[1].replace(",", ""));
+                    int c = Integer.parseInt(parts[2]);
+                    addEntities(type,safari, r, c);
+
+                }
+            }
+        } catch (FileNotFoundException  e){
+            throw new EcoSafariException(EcoSafariException.FILE_NOT_FOUND);
+        } catch (NumberFormatException e){
+            throw new EcoSafariException(EcoSafariException.INVALID_NUMBER);
+        } catch (ArrayIndexOutOfBoundsException e){
+            throw new EcoSafariException(EcoSafariException.INCOMPLET_FORMAT);
+        } finally {
+            if (scan != null) scan.close();
+        }
+    }
+    
+    /**
+     * Exports a file
+     * @param file
+     * @return true if the action was succesfull, else false
+     * @throws EcoSafariException
+     */
+    public static boolean exportAs00(File file) throws EcoSafariException{
+        throw new EcoSafariException("Opcion Export As en construcción. Archivo " + file.getName());
+    }
+
+    public static void exportAs01(File file, EcoSafari safari) throws EcoSafariException{
+        PrintWriter toExport = null;
+        try{
+            toExport = new PrintWriter(new FileWriter(file));
+            for (int r = 0; r < safari.getSize(); r++){
+                for (int c = 0; c < safari.getSize(); c++){
+                    Entity e = safari.get(r, c);
+                    if (e != null) toExport.println(e.getClass().getSimpleName() + " " + r + ", " + c);
+                }
+            }
+        } catch (IOException e){
+            throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
+        } finally {
+            if (toExport != null) {
+                toExport.close();
+            }
+        }
+    }
+
+    public static void exportAs(File file, EcoSafari safari) throws EcoSafariException{
+        if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
+        PrintWriter toExport = null;
+        try{
+            toExport = new PrintWriter(new FileWriter(file));
+            for (int r = 0; r < safari.getSize(); r++){
+                for (int c = 0; c < safari.getSize(); c++){
+                    Entity e = safari.get(r, c);
+                    if (e != null) toExport.println(e.getClass().getSimpleName() + " " + r + ", " + c);
+                }
+            }
+        } catch (IOException e){
+            throw new EcoSafariException(EcoSafariException.CREATE_FILE_NOT_POSSIBLE);
+        } finally {
+            if (toExport != null) {
+                toExport.close();
+            }
+        }
     }
 
     private static void addEntities(String type, EcoSafari safari, int r, int c) throws EcoSafariException{
@@ -297,6 +342,9 @@ public class EcoSafari implements Serializable{
                 break;
             case "Zebra":
                 new Zebra(safari, r, c);
+                break;
+            case "Stella":
+                new Stella(safari, r, c);
                 break;
             default:
                 throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);

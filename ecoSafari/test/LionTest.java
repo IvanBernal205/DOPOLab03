@@ -56,6 +56,14 @@ public class LionTest
 
     @Test
     public void shouldDieWhenRunningOutOfEnergyAndLeaveEarth(){
+        EcoSafari safari = new EcoSafari();
+        
+        for (int r = 23; r <= 24; r++){
+            for (int c = 0; c <= 1; c++){
+                new Earth(safari, r, c);
+            }
+        }
+
         Lion scar = new Lion(safari, 24, 0);
         scar.changeEnergy(-99);
         scar.tic();

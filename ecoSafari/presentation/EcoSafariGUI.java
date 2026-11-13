@@ -106,7 +106,9 @@ public class EcoSafariGUI extends JFrame{
 
                     if (result == 0){
                         File fileToImport = selector.getSelectedFile();
-                        EcoSafari.import_(fileToImport, theEcoSafari);
+                        EcoSafari imported = new EcoSafari();
+                        EcoSafari.import_(fileToImport, imported);
+                        theEcoSafari = imported;
                         photo.repaint();
                     }
                 }catch(EcoSafariException ex){
@@ -143,12 +145,12 @@ public class EcoSafariGUI extends JFrame{
                         EcoSafari.saveAs(fileToImport, theEcoSafari);
                     }
                 }catch(EcoSafariException ex){
-                    JOptionPane.showMessageDialog(null, "Error General");
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });
 
-        optionOpen.addActionListener(new ActionListener() {
+        optionOpen.addActionListener(new ActionListener(){
             @Override 
             public void actionPerformed(ActionEvent e){
                 try {
@@ -161,7 +163,7 @@ public class EcoSafariGUI extends JFrame{
                         photo.repaint();
                     }
                 } catch (EcoSafariException ex){
-                    JOptionPane.showMessageDialog(null, "Error General");
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
         });

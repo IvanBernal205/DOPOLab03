@@ -36,6 +36,8 @@ public class ZebraTest
     @Test
     public void shouldMoveToAValidPosition(){
         EcoSafari safari = new EcoSafari();
+
+        Earth earth =  new Earth(safari, 17, 17);
         Zebra z = new Zebra(safari, 15, 15);
         
         int[] initialPos = safari.find(z);
@@ -52,6 +54,13 @@ public class ZebraTest
     @Test
     public void shouldChangeTheEnergyAfterMoving(){
         EcoSafari safari = new EcoSafari();
+
+        for (int r = 13; r <= 17; r++){
+            for (int c = 13; c <= 17; c++){
+                new Earth(safari, r, c);
+            }
+        }
+
         Zebra z = new Zebra(safari, 15, 15);
         
         float initialEnergy = z.getEnergy();

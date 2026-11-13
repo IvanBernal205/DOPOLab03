@@ -88,4 +88,62 @@ public class EcoSafariTest {
         }
         file.delete(); 
     }
+
+    @Test 
+    public void shouldNotSaveWithAWrongExtension(){
+        EcoSafari safari = new EcoSafari();
+        File file = new File("Safaril.algo");
+
+        try{
+            EcoSafari.saveAs(file, safari);
+        } catch (EcoSafariException e){
+            assertEquals(EcoSafariException.INVALID_EXTENSION_DAT, e.getMessage());
+        }
+    }
+
+    @Test 
+    public void shouldNotOpenAnInexistentFile(){
+        File file = new File("inexistente.dat");
+
+        try{
+            EcoSafari.open(file);
+        } catch (EcoSafariException e){
+            assertEquals(EcoSafariException.FILE_NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @Test 
+    public void shouldNotExportWithAWrongExtension(){
+        EcoSafari safari = new EcoSafari();
+        File file = new File("extensionIncorrecta.dat");
+
+        try {
+            EcoSafari.exportAs(file, safari);
+        } catch (EcoSafariException e) {
+            assertEquals(EcoSafariException.INVALID_EXTENSION_TXT, e.getMessage());
+        }
+    }
+
+    @Test 
+    public void shouldNotImportALineWIthIncompleteData() throws IOException{
+        EcoSafari safari = new EcoSafari();
+        File file = new File("archivoIncompleto.txt");
+
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileWriter(file));
+            writer.println("Elephant 5"); //Falta indicar column
+            writer.close();
+            try {
+                EcoSafari.import_(file, safari);
+            } catch (EcoSafariException e) {
+                assertEquals(EcoSafariException.INCOMPLET_FORMAT, e.getMessage());
+            }
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+            file.delete();
+        }
+    }
 }

@@ -1,0 +1,9 @@
+Elephant 5, 5
+Elephant 10, 10
+Bush 12, 14
+Bush 12, 7
+Storm 12, 3
+Storm 16, 10
+Mamut 0, 0
+Leopard 21, 21
+Leopard 20, 20

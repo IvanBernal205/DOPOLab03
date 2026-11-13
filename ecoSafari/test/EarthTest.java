@@ -36,7 +36,14 @@ public class EarthTest
     @Test
     public void shouldAllTheGridBeEarth(){
         EcoSafari pradera = new EcoSafari();
+
         int size = pradera.getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                new Earth(pradera, i, j);
+            }
+        }
+        
         for(int i = 0; i < size; i++){
             for(int j = 0; j < size; j++){
                 Entity e = pradera.get(i, j);
