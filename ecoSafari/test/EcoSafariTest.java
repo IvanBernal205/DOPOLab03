@@ -82,9 +82,7 @@ public class EcoSafariTest {
 
             assertEquals(Elephant.class, safari.get(2, 20).getClass());
         } finally {
-            if (writter != null){
-                writter.close();
-            }
+            if (writter != null) writter.close();
         }
         file.delete(); 
     }
@@ -140,9 +138,52 @@ public class EcoSafariTest {
                 assertEquals(EcoSafariException.INCOMPLET_FORMAT, e.getMessage());
             }
         } finally {
-            if (writer != null) {
-                writer.close();
+            if (writer != null) writer.close();
+            file.delete();
+        }
+    }
+
+    @Test
+    public void shouldReportWhereTheErrorHappendAndWhichOneWasIt() throws IOException {
+        EcoSafari safari = new EcoSafari();
+        File file = new File("Error.txt");
+
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileWriter(file));
+            writer.println("Elephant 2, 20");
+            writer.println("ClaseInexistente 5, 5");
+            writer.close();
+            try {
+                EcoSafari.import_(file, safari);
+            } catch (EcoSafariException e) {
+                assertTrue(e.getMessage().contains("linea 2"));
+                assertTrue(e.getMessage().contains("ClaseInexistente"));
             }
+        } finally {
+            if (writer != null) writer.close();
+            file.delete();
+        }
+    }
+
+    @Test 
+    public void shouldImportAnEntityByItsName() throws IOException, EcoSafariException {
+        EcoSafari safari = new EcoSafari();
+        File file = new File("test.txt");
+
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileWriter(file));
+            writer.println("Zebra 5, 15");
+            writer.println("Elephant 18, 10");
+            writer.close();
+
+            EcoSafari.import_(file, safari);
+
+            assertEquals(Zebra.class, safari.get(5, 15).getClass());
+            assertEquals(Elephant.class, safari.get(18, 10).getClass());
+        } finally {
+            if (writer != null) writer.close();
             file.delete();
         }
     }

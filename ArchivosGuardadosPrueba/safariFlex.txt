@@ -1,0 +1,4 @@
+Elephant 2, 21
+Zebra 14, 6
+Lion 8, 9
+Bush 13, 13

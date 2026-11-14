@@ -1,6 +1,8 @@
 package domain;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 /**
@@ -237,7 +239,7 @@ public class EcoSafari implements Serializable{
         }
     }
 
-    public static void import_(File file, EcoSafari safari) throws EcoSafariException{
+    public static void import02(File file, EcoSafari safari) throws EcoSafariException{
         if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
         Scanner scan = null;
         try{
@@ -262,6 +264,113 @@ public class EcoSafari implements Serializable{
             throw new EcoSafariException(EcoSafariException.INCOMPLET_FORMAT);
         } finally {
             if (scan != null) scan.close();
+        }
+    }
+
+    public static void import03(File file, EcoSafari safari) throws EcoSafariException{
+        if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
+        Scanner scan = null;
+
+        String errorsFound = "";
+        int lineRead = 0;
+
+        try{
+            scan = new Scanner(file);
+            while (scan.hasNextLine()){
+                lineRead++;
+                String line = scan.nextLine().trim();
+
+                if (!line.isEmpty()){
+                    String potencialError = lineImported(line, safari);
+                    if (potencialError != null) errorsFound += "En la linea " + lineRead + ": " + potencialError + "\n";
+                }
+            }
+        } catch (FileNotFoundException  e){
+            throw new EcoSafariException(EcoSafariException.FILE_NOT_FOUND);
+        } finally {
+            if (scan != null) scan.close();
+        }
+
+        //Si se encontraron errores
+        if (!errorsFound.isEmpty()) throw new EcoSafariException(errorsFound);
+    }
+
+    public static void import_(File file, EcoSafari safari) throws EcoSafariException{
+        if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
+        Scanner scan = null;
+
+        String errorsFound = "";
+        int lineRead = 0;
+
+        try{
+            scan = new Scanner(file);
+            while (scan.hasNextLine()){
+                lineRead++;
+                String line = scan.nextLine().trim();
+
+                if (!line.isEmpty()){
+                    String potencialError = lineImported(line, safari);
+                    if (potencialError != null) errorsFound += "En la linea " + lineRead + ": " + potencialError + "\n";
+                }
+            }
+        } catch (FileNotFoundException  e){
+            throw new EcoSafariException(EcoSafariException.FILE_NOT_FOUND);
+        } finally {
+            if (scan != null) scan.close();
+        }
+
+        //Si se encontraron errores
+        if (!errorsFound.isEmpty()) throw new EcoSafariException(errorsFound);
+    }
+
+
+    private static String lineImported(String line, EcoSafari safari){
+        //0 Clase 1 row 2 column
+        String[] parts = line.split(" ");
+
+        if (parts.length != 3) return "Formato incorrecto, el esperado es: Clase fila, columna";
+        if (!parts[1].endsWith(",")) return "Despues de indicar la fila debe ir una coma (,)";
+
+        int row;
+        int col;
+
+        try{
+            row= Integer.parseInt(parts[1].replace(",",""));
+        } catch (NumberFormatException e){
+            return parts[1] + ": no es un numero de fila valido.";
+        } 
+        try {
+            col = Integer.parseInt(parts[2]);
+        } catch (NumberFormatException e){
+            return parts[2] + ": no es un numero de columna valido";
+        } 
+
+        if (!safari.isInside(row, col)) return "La posicion de row: "+row+" y columna" +col + " esta por fuera del tablero";
+
+        return createGivenEntity(parts[0], safari, row, col);
+    }
+
+    public static String createGivenEntity(String givenClass, EcoSafari safari, int r, int c){
+        try {
+            Class<?> entityClass = Class.forName("domain." + givenClass);
+            if (!Entity.class.isAssignableFrom(entityClass)) return givenClass + ": No es una entidad";
+
+            Constructor<?> constructor = entityClass.getDeclaredConstructor(EcoSafari.class, int.class, int.class);
+            constructor.newInstance(safari, r, c);
+            return null;
+        
+        } catch(ClassNotFoundException e){
+            return givenClass + "no existe.";
+        } catch (NoClassDefFoundError e) {
+            return givenClass + " no existe, el error puede ser por mayusculas.";
+        }  catch (NoSuchMethodException e) {
+            return givenClass + " no tiene un constructor con la estructura (EcoSafari, fila, columna).";
+        } catch (InstantiationException e) {
+            return givenClass + " es abstracta, por lo que no se puede crear.";
+        } catch (IllegalAccessException e) {
+            return givenClass +  "No permite acceder a su constructor";
+        } catch (InvocationTargetException e) {
+            return givenClass + "No pudo crearse por un error con su construccion.";
         }
     }
     
@@ -308,9 +417,7 @@ public class EcoSafari implements Serializable{
         } catch (IOException e){
             throw new EcoSafariException(EcoSafariException.CREATE_FILE_NOT_POSSIBLE);
         } finally {
-            if (toExport != null) {
-                toExport.close();
-            }
+            if (toExport != null) toExport.close();
         }
     }
 
