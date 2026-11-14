@@ -130,6 +130,12 @@ public class EcoSafari implements Serializable{
         }
     }
 
+    /**
+     * Open a .dat file that contains a game
+     * @param file The file of the game that will be opened
+     * @return The game opened
+     * @throws EcoSafariException INVALID_EXTENSION_DAT, FILE_NOT_FOUND, INCOMPATIBLE_VERSION, CLASS_NOT_FOUND, ERROR_READING
+     */
     public static EcoSafari open(File file) throws EcoSafariException{
         if (!file.getName().endsWith(".dat")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_DAT);
         ObjectInputStream toOpen = null;
@@ -183,6 +189,12 @@ public class EcoSafari implements Serializable{
         }
     }
 
+    /**
+     * Saves a file with a game with extension .dat
+     * @param file The file that will be saved 
+     * @param safari The game saved 
+     * @throws EcoSafariException INVALID_EXTENSION_DAT, FILE_NOT_FOUND, NOT_SERIALIZABLE, ERROR_WHILE_WRITING, GENERAL_ERROR
+     */
     public static void saveAs(File file, EcoSafari safari) throws EcoSafariException{
         if (!file.getName().endsWith(".dat")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_DAT);
         ObjectOutputStream toSave = null;
@@ -295,6 +307,12 @@ public class EcoSafari implements Serializable{
         if (!errorsFound.isEmpty()) throw new EcoSafariException(errorsFound);
     }
 
+    /**
+     * Imports a file .txt which is the game seen on screen
+     * @param file The file that is imported 
+     * @param safari The game imported 
+     * @throws EcoSafariException INVALID_EXTENSION_TXT, FILE_NOT_FOUND
+     */
     public static void import_(File file, EcoSafari safari) throws EcoSafariException{
         if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
         Scanner scan = null;
@@ -324,6 +342,12 @@ public class EcoSafari implements Serializable{
     }
 
 
+    /**
+     *  Check the possible errors in a line read
+     * @param line The line that will be checked
+     * @param safari The game where it is located
+     * @return The text indicating where the error occurs, null if it has no errors
+     */
     private static String lineImported(String line, EcoSafari safari){
         //0 Clase 1 row 2 column
         String[] parts = line.split(" ");
@@ -350,6 +374,14 @@ public class EcoSafari implements Serializable{
         return createGivenEntity(parts[0], safari, row, col);
     }
 
+    /**
+     * Create an entity given it class
+     * @param givenClass The class of the entity that will be created
+     * @param safari The game where i will be created
+     * @param r The row where it will be located
+     * @param c The column where it will be located
+     * @return
+     */
     public static String createGivenEntity(String givenClass, EcoSafari safari, int r, int c){
         try {
             Class<?> entityClass = Class.forName("domain." + givenClass);
@@ -403,6 +435,12 @@ public class EcoSafari implements Serializable{
         }
     }
 
+    /**
+     * Exports a game into a .txt file when it's possible
+     * @param file The file to export
+     * @param safari The game that will be exported
+     * @throws EcoSafariException INVALID_EXTENSION_TXT, CREATE_FILE_NOT_POSSIBLE
+     */
     public static void exportAs(File file, EcoSafari safari) throws EcoSafariException{
         if (!file.getName().endsWith(".txt")) throw new EcoSafariException(EcoSafariException.INVALID_EXTENSION_TXT);
         PrintWriter toExport = null;
@@ -421,6 +459,14 @@ public class EcoSafari implements Serializable{
         }
     }
 
+    /**
+     * Create entities based on it's type
+     * @param type The type of the entity
+     * @param safari The game where it will be created
+     * @param r The row where it will be located
+     * @param c The column where it will be located
+     * @throws EcoSafariException GENERAL_ERROR
+     */ 
     private static void addEntities(String type, EcoSafari safari, int r, int c) throws EcoSafariException{
         switch (type) {
             case "Bush":
@@ -457,8 +503,4 @@ public class EcoSafari implements Serializable{
                 throw new EcoSafariException(EcoSafariException.GENERAL_ERROR);
         }
     }
-
-    
-
-
 }

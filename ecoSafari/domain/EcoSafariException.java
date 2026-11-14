@@ -17,7 +17,6 @@ public class EcoSafariException extends Exception {
     public static final String INVALID_NUMBER = "Se esperaba un numero.";
     public static final String INCOMPLET_FORMAT = "Alguna de las lineas no esta completa.";
 
-
     public EcoSafariException(String ms){
         super(ms);
     }

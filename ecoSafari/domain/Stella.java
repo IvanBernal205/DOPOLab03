@@ -13,6 +13,12 @@ import java.awt.Color;
 public class Stella implements Entity{
     private EcoSafari habitat;
 
+    /**
+     * Creates a new Stella for the Safari
+     * @param habitat The game where it will be created 
+     * @param row The row of the location where the stella will be created
+     * @param column The column of the location where the stella will be created
+     */
     public Stella(EcoSafari habitat, int row, int column){
         this.habitat = habitat;
         habitat.set((Entity) this, row, column);
